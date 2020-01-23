@@ -1,0 +1,14 @@
+<button (click)="login()" *ngIf="!claims">Login!</button>
+<button (click)="logout()" *ngIf="claims">Logout!</button>
+
+<hr />
+
+<div *ngIf="claims">
+  <pre>{{claimJsonString}}</pre>
+</div>
+
+<hr />
+
+<div *ngIf="claims">
+  {{scopesJsonString}}
+</div>
