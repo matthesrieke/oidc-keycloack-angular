@@ -4,11 +4,13 @@
 <hr />
 
 <div *ngIf="claims">
+  <h2>Claims from SSO Resource Server</h2>
   <pre>{{claimJsonString}}</pre>
 </div>
 
 <hr />
 
-<div *ngIf="claims">
-  {{scopesJsonString}}
+<div *ngIf="data">
+  <h2>User data from REST API</h2>
+  <pre>{{data}}</pre>
 </div>

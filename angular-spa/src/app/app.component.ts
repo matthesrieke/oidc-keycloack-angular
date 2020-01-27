@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthInitializer } from './auth-init';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +15,9 @@ export class AppComponent implements OnInit {
   claimJsonString: string;
   scopes: any;
   scopesJsonString: string;
+  data: any;
 
-  constructor(private oauthService: OAuthService) {
+  constructor(private oauthService: OAuthService, private http: HttpClient) {
 
   }
 
@@ -29,6 +31,13 @@ export class AppComponent implements OnInit {
         if (this.claims) {
           this.claimJsonString = JSON.stringify(this.claims, null, 4);
           this.scopesJsonString = JSON.stringify(this.scopes);
+
+          this.http.get<any>('http://localhost:8080/api/me', { headers: { Authorization: 'Bearer '+ this.oauthService.getAccessToken() }}).subscribe(res => {
+            console.log('data', res);
+            this.data = JSON.stringify(res, null, 4);
+          }, err => {
+            console.log('err', err);
+          });
         }
       }
     })

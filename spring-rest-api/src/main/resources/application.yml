@@ -1,0 +1,27 @@
+server:
+  port: 8080
+logging:
+  level:
+    root: INFO
+    org.springframework.security: DEBUG
+    org.n52: DEBUG
+security:
+  oauth2:
+    resource:
+      id: account
+      token-info-uri: ${custom.security.issuer-uri}/protocol/openid-connect/token/introspect
+      user-info-uri: ${custom.security.issuer-uri}/protocol/openid-connect/userinfo
+      jwk:
+        keyset-uri: ${custom.security.issuer-uri}/protocol/openid-connect/certs
+    client:
+      client-id: spring-rest-api
+      client-secret: c17bf419-01b3-42b6-bb2e-3c42e3079d77
+custom:
+  security:
+    cors:
+      max-age: 3600
+      allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
+      allowed-headers: "*"
+      allowed-origins: "*"
+    matched-paths: /api/**
+    issuer-uri: http://localhost:8081/auth/realms/master
